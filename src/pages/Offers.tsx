@@ -1,10 +1,16 @@
-import React from 'react';
+import {useContext} from 'react';
+import { OffersContext } from '../contexts/OffersContext';
 
-function Offers() {
-  return (
-    <div id="page-offers">
+function Offers() {  
+  const { handleGetCep, endereco } = useContext(OffersContext);
+  let cep = ''
+  
+  return (    
+      <div id="page-offers">    
+
       Ofertas
-    </div>
+        <button type="button" onClick={ handleGetCep }> teste </button>
+      </div>
   )
 }
 
