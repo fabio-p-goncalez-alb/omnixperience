@@ -1,3 +1,7 @@
+.page-header{
+  display: flex;
+  background-color: var(--white);
+}
 
 .navbar ul {
   display: flex;
@@ -8,20 +12,19 @@
   width: max-content;
 }
 
-
-
-.nav-item a {
-  text-decoration: none;
-  vertical-align: middle;
-  color: var(--text);
-  font-weight: 400;
-}
 .nav-item{  
   border-right: 1px solid var(--gray-line);
   padding: 0.8rem;
   transition: color 0.3s ease-in;
   flex: 1 1 auto;
   text-align: center; 
+}
+
+.nav-item a {
+  text-decoration: none;
+  vertical-align: middle;
+  color: var(--text);
+  font-weight: 400;
 }
 
 .nav-item:hover {
@@ -34,17 +37,15 @@
   color: var(--white)
 }
 
-
-
 @media (max-width: 768px) {
   .navbar ul {
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    margin: 0.1rem 0 0.2rem;
   }
 
   .nav-item{  
-    border-right: none;      
+    border-right: none;     
     border-bottom: 1px solid var(--gray-line);
     width: 50px;
   }
