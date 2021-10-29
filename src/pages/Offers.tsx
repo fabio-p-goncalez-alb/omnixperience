@@ -2,14 +2,12 @@ import {useContext} from 'react';
 import { OffersContext } from '../contexts/OffersContext';
 
 function Offers() {  
-  const { handleGetCep, endereco } = useContext(OffersContext);
-  let cep = ''
-  
+  const {handleSetModal} = useContext(OffersContext);
   return (    
       <div id="page-offers">    
 
       Ofertas
-        <button type="button" onClick={ handleGetCep }> teste </button>
+        <button type="button" onClick={handleSetModal}> teste </button>
       </div>
   )
 }

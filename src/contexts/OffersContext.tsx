@@ -1,8 +1,10 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
+import CepModal from "../components/CepModal";
 
 interface OffersContextData {
   endereco: Endereco;
-  handleGetCep: () => void;
+  handleGetCep: (cep:string) => void;
+  handleSetModal: () => void;
 }
 
 interface Endereco {
@@ -25,6 +27,8 @@ interface OffersProviderProps {
 export const OffersContext = createContext({} as OffersContextData);
 
 export function OffersProvider({ children }: OffersProviderProps) {
+  const [isModal, setIsModal] = useState(false);
+  const [isCep, setIsCep] = useState(false);
   const  [endereco, setEndereco] = useState<Endereco>({
     cep: '',
     logradouro: '',
@@ -42,27 +46,39 @@ export function OffersProvider({ children }: OffersProviderProps) {
 
   useEffect(()=>{
     if (!initialRender.current) {
-      return console.log(endereco)
+      setIsCep(true);
+      handleSetModal()
+      return console.log(endereco);
     }
     initialRender.current = false;
   }, [endereco]);
 
-  function handleGetCep() {
-    let cep= '03282000';
+  function handleSetModal() {
+    setIsModal(!isModal);
+  }
+
+  function handleGetCep(cep:string) {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((res) => res.json()
         .then((json) => {
           setEndereco(json);          
         }))
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        setIsCep(false);
+        throw err.message
+      });
   }
 
   return (
     <OffersContext.Provider value={{
       endereco,
-      handleGetCep
+      handleGetCep,
+      handleSetModal
       }}>
       { children }
+
+      { isModal && <CepModal />}
+      { !isCep}
     </OffersContext.Provider>
   )
 }
