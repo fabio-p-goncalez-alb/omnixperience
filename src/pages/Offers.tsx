@@ -1,14 +1,18 @@
-import {useContext} from 'react';
+import { useContext } from 'react';
+import CepButton from '../components/CepButton';
 import { OffersContext } from '../contexts/OffersContext';
+import '../styles/pages/offers.css';
 
-function Offers() {  
-  const {handleSetModal} = useContext(OffersContext);
-  return (    
-      <div id="page-offers">    
+function Offers() {
+  const { handleSetModal, isCep } = useContext(OffersContext);
+  return (
+    <main id="page-offers">
 
       Ofertas
-        <button type="button" onClick={handleSetModal}> teste </button>
-      </div>
+      <section>
+        <CepButton />
+      </section>
+    </main>
   )
 }
 

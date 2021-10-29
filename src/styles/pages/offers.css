@@ -1,0 +1,16 @@
+#page-offers {
+  display: flex;
+  height: 92%;
+  width: 100%;
+}
+
+#page-offers > section {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #page-offers{
+    height: 87%;
+  }
+}

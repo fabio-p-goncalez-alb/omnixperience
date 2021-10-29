@@ -22,11 +22,6 @@ function CepModal() {
           onChange={e => setCep(e.target.value)}/>
           <button type="submit"> Confirmar </button>
         </form>
-        <p>Você alcançou um novo level.</p>
-
-        <button type='button' onClick={alert}>
-          TESTE
-        </button>
       </div>
     </div>
   );

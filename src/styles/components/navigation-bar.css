@@ -1,5 +1,7 @@
 .page-header{
   display: flex;
+  min-height: 8%;
+  max-height: max-content;
   background-color: var(--white);
 }
 
@@ -8,8 +10,7 @@
   justify-content: space-between;
   align-items: center;
   list-style-type: none;
-  margin: 0.5rem 0 0.5rem;
-  width: max-content;
+  padding: 0.5rem 0 0.5rem;
 }
 
 .nav-item{  
@@ -38,10 +39,14 @@
 }
 
 @media (max-width: 768px) {
+  .page-header{
+  min-height: 13%;
+  max-height: max-content;
+  }
   .navbar ul {
     flex-direction: column;
     justify-content: flex-start;
-    margin: 0.1rem 0 0.2rem;
+    padding: 0.1rem 0 0.2rem;
   }
 
   .nav-item{  

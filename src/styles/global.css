@@ -1,8 +1,7 @@
-body {
+html, body, #root {
   background-color: var(--background);
+  height: 100vh;
 }
-
-
 
 :root {
   --white:#FFF;

@@ -3,8 +3,9 @@ import CepModal from "../components/CepModal";
 
 interface OffersContextData {
   endereco: Endereco;
-  handleGetCep: (cep:string) => void;
+  handleGetCep: (cep: string) => void;
   handleSetModal: () => void;
+  isCep: boolean;
 }
 
 interface Endereco {
@@ -29,7 +30,7 @@ export const OffersContext = createContext({} as OffersContextData);
 export function OffersProvider({ children }: OffersProviderProps) {
   const [isModal, setIsModal] = useState(false);
   const [isCep, setIsCep] = useState(false);
-  const  [endereco, setEndereco] = useState<Endereco>({
+  const [endereco, setEndereco] = useState<Endereco>({
     cep: '',
     logradouro: '',
     complemento: '',
@@ -44,27 +45,33 @@ export function OffersProvider({ children }: OffersProviderProps) {
 
   const initialRender = useRef(true);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!initialRender.current) {
+      handleSetModal();
       setIsCep(true);
-      handleSetModal()
       return console.log(endereco);
     }
     initialRender.current = false;
   }, [endereco]);
 
   function handleSetModal() {
-    setIsModal(!isModal);
+    if (!isCep) {
+      setIsModal(!isModal);
+    }
   }
 
-  function handleGetCep(cep:string) {
+  function handleGetCep(cep: string) {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
-      .then((res) => res.json()
-        .then((json) => {
-          setEndereco(json);          
-        }))
+      .then((res) => {
+        if (res.ok) {
+          res.json()
+            .then((json) =>
+              setEndereco(json))
+        }
+      }
+      )
       .catch((err) => {
-        setIsCep(false);
+        handleSetModal();
         throw err.message
       });
   }
@@ -73,12 +80,12 @@ export function OffersProvider({ children }: OffersProviderProps) {
     <OffersContext.Provider value={{
       endereco,
       handleGetCep,
-      handleSetModal
-      }}>
-      { children }
+      handleSetModal,
+      isCep
+    }}>
+      { children}
 
       { isModal && <CepModal />}
-      { !isCep}
     </OffersContext.Provider>
   )
 }
